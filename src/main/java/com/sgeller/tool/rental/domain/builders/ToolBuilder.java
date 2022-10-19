@@ -2,7 +2,7 @@ package com.sgeller.tool.rental.domain.builders;
 
 import com.sgeller.tool.rental.domain.Tool;
 
-public abstract class ToolBuilder<T extends Tool, B extends ToolBuilder> implements Builder<T, B> {
+public abstract class ToolBuilder<T extends Tool, B extends ToolBuilder> implements Builder<T> {
 
     protected String toolCode;
     protected String brand;

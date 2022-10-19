@@ -5,7 +5,7 @@ import com.sgeller.tool.rental.domain.RentalAgreement;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class RentalAgreementBuilder implements Builder<RentalAgreement, RentalAgreementBuilder> {
+public class RentalAgreementBuilder implements Builder<RentalAgreement> {
 
     private String toolCode;
     private String toolType;

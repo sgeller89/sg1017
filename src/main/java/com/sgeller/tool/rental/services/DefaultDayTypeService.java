@@ -1,6 +1,6 @@
 package com.sgeller.tool.rental.services;
 
-import com.sgeller.tool.rental.domain.DateType;
+import com.sgeller.tool.rental.domain.DayType;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -8,26 +8,26 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 
-public class DefaultDateTypeService implements DateTypeService {
+public class DefaultDayTypeService implements DayTypeService {
 
-    private static final Map<DayOfWeek, DateType> DAY_TYPE_MAP = Map.of(
-            DayOfWeek.SUNDAY, DateType.WEEKEND,
-            DayOfWeek.MONDAY, DateType.WEEKDAY,
-            DayOfWeek.TUESDAY, DateType.WEEKDAY,
-            DayOfWeek.WEDNESDAY, DateType.WEEKDAY,
-            DayOfWeek.THURSDAY, DateType.WEEKDAY,
-            DayOfWeek.FRIDAY, DateType.WEEKDAY,
-            DayOfWeek.SATURDAY, DateType.WEEKEND
+    private static final Map<DayOfWeek, DayType> DAY_TYPE_MAP = Map.of(
+            DayOfWeek.SUNDAY, DayType.WEEKEND,
+            DayOfWeek.MONDAY, DayType.WEEKDAY,
+            DayOfWeek.TUESDAY, DayType.WEEKDAY,
+            DayOfWeek.WEDNESDAY, DayType.WEEKDAY,
+            DayOfWeek.THURSDAY, DayType.WEEKDAY,
+            DayOfWeek.FRIDAY, DayType.WEEKDAY,
+            DayOfWeek.SATURDAY, DayType.WEEKEND
     );
 
     private final HolidayService holidayService;
 
-    public DefaultDateTypeService(HolidayService holidayService) {
+    public DefaultDayTypeService(HolidayService holidayService) {
         this.holidayService = holidayService;
     }
 
     @Override
-    public DateType getDateType(LocalDate localDate) {
+    public DayType getDayType(LocalDate localDate) {
         if (localDate == null) {
             throw new IllegalArgumentException("localDate must be present.");
         }
@@ -37,7 +37,7 @@ public class DefaultDateTypeService implements DateTypeService {
                 .orElseGet(ArrayList::new).stream()
                 .filter(holidayDate -> holidayDate.isEqual(localDate))
                 .findFirst()
-                .map(__ -> DateType.HOLIDAY)
+                .map(__ -> DayType.HOLIDAY)
                 .orElse(DAY_TYPE_MAP.get(localDate.getDayOfWeek()));
     }
 }

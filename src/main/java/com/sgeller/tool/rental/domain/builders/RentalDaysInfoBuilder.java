@@ -4,7 +4,7 @@ import com.sgeller.tool.rental.domain.RentalDaysInfo;
 
 import java.time.LocalDate;
 
-public class RentalDaysInfoBuilder implements Builder<RentalDaysInfo, RentalDaysInfoBuilder> {
+public class RentalDaysInfoBuilder implements Builder<RentalDaysInfo> {
 
     private Integer chargeDays;
     private LocalDate dueDate;

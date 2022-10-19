@@ -1,6 +1,6 @@
 package com.sgeller.tool.rental.domain;
 
-public enum DateType {
+public enum DayType {
     WEEKDAY,
     WEEKEND,
     HOLIDAY

@@ -1,7 +1,7 @@
 package com.sgeller.tool.rental.services;
 
 import com.sgeller.tool.rental.domain.Checkout;
-import com.sgeller.tool.rental.domain.DateType;
+import com.sgeller.tool.rental.domain.DayType;
 import com.sgeller.tool.rental.domain.RentalDaysInfo;
 import com.sgeller.tool.rental.domain.Tool;
 import com.sgeller.tool.rental.domain.builders.RentalDaysInfoBuilder;
@@ -11,10 +11,10 @@ import java.util.Optional;
 
 public class DefaultRentalDaysService implements RentalDaysService {
 
-    private final DateTypeService dateTypeService;
+    private final DayTypeService dayTypeService;
 
-    public DefaultRentalDaysService(DateTypeService dateTypeService) {
-        this.dateTypeService = dateTypeService;
+    public DefaultRentalDaysService(DayTypeService dayTypeService) {
+        this.dayTypeService = dayTypeService;
     }
 
     @Override
@@ -33,14 +33,13 @@ public class DefaultRentalDaysService implements RentalDaysService {
         Integer chargeDays = 0;
 
         while (currentDate.isBefore(dueDate) || currentDate.isEqual(dueDate)) {
-            DateType dateType = this.dateTypeService.getDateType(currentDate);
+            DayType dayType = this.dayTypeService.getDayType(currentDate);
 
-            if (dateType == DateType.WEEKDAY && tool.getWeekdayCharge()) {
+            if (dayType == DayType.WEEKDAY && tool.getWeekdayCharge()) {
                 chargeDays++;
-            }
-            if (dateType == DateType.WEEKEND && tool.getWeekendCharge()) {
+            } else if (dayType == DayType.WEEKEND && tool.getWeekendCharge()) {
                 chargeDays++;
-            } else if (dateType == DateType.HOLIDAY && tool.getHolidayCharge()) {
+            } else if (dayType == DayType.HOLIDAY && tool.getHolidayCharge()) {
                 chargeDays++;
             }
 

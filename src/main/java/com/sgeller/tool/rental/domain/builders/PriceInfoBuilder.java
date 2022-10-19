@@ -4,7 +4,7 @@ import com.sgeller.tool.rental.domain.PriceInfo;
 
 import java.math.BigDecimal;
 
-public class PriceInfoBuilder implements Builder<PriceInfo, PriceInfoBuilder> {
+public class PriceInfoBuilder implements Builder<PriceInfo> {
 
     private BigDecimal preDiscountCharge;
     private BigDecimal discountAmount;

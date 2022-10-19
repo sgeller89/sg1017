@@ -30,8 +30,15 @@ public class DefaultCheckoutService implements CheckoutService {
 
         RentalDaysInfo rentalDaysInfo = this.rentalDaysService.calculateChargeDays(checkout, tool);
 
-        PriceInfo priceInfo = this.priceService.getPriceInfo(tool.getDailyCharge(), rentalDaysInfo.getChargeDays(),
-                checkout.getDiscountPercent());
+        PriceInfo priceInfo =
+                this.priceService.getPriceInfo(
+                        Optional.ofNullable(tool)
+                                .map(Tool::getDailyCharge)
+                                .orElse(null),
+                        Optional.ofNullable(rentalDaysInfo)
+                                .map(RentalDaysInfo::getChargeDays)
+                                .orElse(null),
+                        checkout.getDiscountPercent());
 
         return new RentalAgreementBuilder()
                 .withToolCode(checkout.getToolCode())

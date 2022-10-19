@@ -20,9 +20,9 @@ public class DefaultCheckoutServiceTest {
     @BeforeEach
     public void setup() {
         HolidayService holidayService = new DefaultHolidayService();
-        DateTypeService dateTypeService = new DefaultDateTypeService(holidayService);
+        DayTypeService dayTypeService = new DefaultDayTypeService(holidayService);
 
-        this.rentalDaysService = new DefaultRentalDaysService(dateTypeService);
+        this.rentalDaysService = new DefaultRentalDaysService(dayTypeService);
         this.priceService = new DefaultPriceService();
 
         this.checkoutService = new DefaultCheckoutService(this.rentalDaysService, this.priceService);

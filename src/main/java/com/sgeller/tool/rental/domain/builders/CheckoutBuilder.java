@@ -4,7 +4,7 @@ import com.sgeller.tool.rental.domain.Checkout;
 
 import java.time.LocalDate;
 
-public class CheckoutBuilder implements Builder<Checkout, CheckoutBuilder> {
+public class CheckoutBuilder implements Builder<Checkout> {
 
     private String toolCode;
     private Integer rentalDayCount;
