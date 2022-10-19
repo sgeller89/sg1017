@@ -4,24 +4,18 @@ import com.sgeller.tool.rental.domain.DayType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class DefaultDayTypeServiceTest {
 
     private DayTypeService dayTypeService;
-    private HolidayService holidayService;
 
     @BeforeEach
     public void setup() {
-        this.holidayService = Mockito.mock(HolidayService.class);
-        Mockito.doReturn(List.of(LocalDate.of(2022, 9, 5)))
-                .when(this.holidayService)
-                .getHolidayDates(2022);
+        HolidayService holidayService = new DefaultHolidayService();
 
-        this.dayTypeService = new DefaultDayTypeService(this.holidayService);
+        this.dayTypeService = new DefaultDayTypeService(holidayService);
     }
 
     @Test
@@ -68,7 +62,7 @@ public class DefaultDayTypeServiceTest {
 
     @Test
     public void testGetDayTypeHoliday() {
-        DayType dayType = this.dayTypeService.getDayType(LocalDate.of(2022, 9, 5));
+        DayType dayType = this.dayTypeService.getDayType(LocalDate.of(2022, 7, 4));
         Assertions.assertEquals(DayType.HOLIDAY, dayType);
     }
 

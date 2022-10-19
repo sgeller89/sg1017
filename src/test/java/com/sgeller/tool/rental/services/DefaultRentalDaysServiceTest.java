@@ -1,7 +1,6 @@
 package com.sgeller.tool.rental.services;
 
 import com.sgeller.tool.rental.domain.Checkout;
-import com.sgeller.tool.rental.domain.DayType;
 import com.sgeller.tool.rental.domain.RentalDaysInfo;
 import com.sgeller.tool.rental.domain.Tool;
 import com.sgeller.tool.rental.domain.builders.CheckoutBuilder;
@@ -9,34 +8,18 @@ import com.sgeller.tool.rental.domain.factories.ToolFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.time.LocalDate;
 
 public class DefaultRentalDaysServiceTest {
 
     private RentalDaysService rentalDaysService;
-    private DayTypeService dayTypeService;
 
     @BeforeEach
     public void setup() {
-        this.dayTypeService = Mockito.mock(DayTypeService.class);
-        Mockito.doReturn(DayType.WEEKEND)
-                .when(this.dayTypeService)
-                .getDayType(LocalDate.of(2022, 7, 3));
-        Mockito.doReturn(DayType.HOLIDAY)
-                .when(this.dayTypeService)
-                .getDayType(LocalDate.of(2022, 7, 4));
-        Mockito.doReturn(DayType.WEEKDAY)
-                .when(this.dayTypeService)
-                .getDayType(LocalDate.of(2022, 7, 5));
-        Mockito.doReturn(DayType.WEEKDAY)
-                .when(this.dayTypeService)
-                .getDayType(LocalDate.of(2022, 7, 6));
-        Mockito.doReturn(DayType.WEEKDAY)
-                .when(this.dayTypeService)
-                .getDayType(LocalDate.of(2022, 7, 7));
-        this.rentalDaysService = new DefaultRentalDaysService(this.dayTypeService);
+        HolidayService holidayService = new DefaultHolidayService();
+        DayTypeService dayTypeService = new DefaultDayTypeService(holidayService);
+        this.rentalDaysService = new DefaultRentalDaysService(dayTypeService);
     }
 
     @Test

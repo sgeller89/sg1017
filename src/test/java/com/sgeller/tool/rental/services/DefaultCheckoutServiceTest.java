@@ -14,18 +14,15 @@ import java.time.LocalDate;
 public class DefaultCheckoutServiceTest {
 
     private CheckoutService checkoutService;
-    private RentalDaysService rentalDaysService;
-    private PriceService priceService;
 
     @BeforeEach
     public void setup() {
         HolidayService holidayService = new DefaultHolidayService();
         DayTypeService dayTypeService = new DefaultDayTypeService(holidayService);
+        RentalDaysService rentalDaysService = new DefaultRentalDaysService(dayTypeService);
+        PriceService priceService = new DefaultPriceService();
 
-        this.rentalDaysService = new DefaultRentalDaysService(dayTypeService);
-        this.priceService = new DefaultPriceService();
-
-        this.checkoutService = new DefaultCheckoutService(this.rentalDaysService, this.priceService);
+        this.checkoutService = new DefaultCheckoutService(rentalDaysService, priceService);
     }
 
     @Test
